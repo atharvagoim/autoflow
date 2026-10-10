@@ -1,0 +1,28 @@
+# Render Blueprint: AutoFlow as ONE free web service (API + web app).
+services:
+  - type: web
+    name: autoflow
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false # your MongoDB Atlas connection string
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: AUTO_SEED
+        value: "true" # shows "Try the demo"; set to false for a real business
+      - key: OPENAI_API_KEY
+        sync: false # optional
+      - key: SMTP_HOST
+        sync: false # optional
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --include=dev",
+  "buildCommand": "vite build --config frontend/vite.config.mts",
+  "outputDirectory": "dist/client",
+  "functions": {
+    "api/*.ts": { "maxDuration": 60, "includeFiles": "backend/src/**" }
+  },
+  "crons": [{ "path": "/api/cron", "schedule": "0 8 * * *" }],
+  "rewrites": [
+    { "source": "/health", "destination": "/api/index" },
+    { "source": "/api/cron", "destination": "/api/cron" },
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/((?!assets/|.*\..*).*)", "destination": "/index.html" }
+  ]
+}

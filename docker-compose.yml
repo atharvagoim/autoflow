@@ -1,0 +1,21 @@
+# One command: docker compose up -d --build   →  http://localhost:5050
+# Uses your .env; MONGO_URI is pointed at the bundled MongoDB below.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports: ["5050:5050"]
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: 5050
+      MONGO_URI: mongodb://mongo:27017/autoflow
+    depends_on: [mongo]
+
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes: [mongo_data:/data/db]
+
+volumes:
+  mongo_data:

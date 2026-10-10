@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    @apply bg-ink-950 text-fog antialiased;
+    font-family: "DM Sans", system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply min-h-screen bg-ink-950;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+  :focus-visible {
+    outline: 2px solid #c6f27c;
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: #f5a3cb;
+    color: #060608;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.85);
+    cursor: pointer;
+  }
+  input[type="number"]::-webkit-inner-spin-button { opacity: 0.4; }
+  * { scrollbar-width: thin; scrollbar-color: #2a2a35 transparent; }
+}
+
+@layer components {
+  /* Quiet dark surface used for most panels. */
+  .surface {
+    @apply rounded-3xl border border-white/[0.07] bg-ink-850;
+  }
+  .field {
+    @apply w-full rounded-2xl border border-white/10 bg-ink-900 px-4 py-3 text-[15px] text-fog placeholder:text-dim
+      transition-colors hover:border-white/20 focus:border-lime/70 focus:outline-none focus:ring-2 focus:ring-lime/20;
+  }
+  .field-invalid {
+    @apply border-danger/70 focus:border-danger focus:ring-danger/20;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-mute;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  /* Soft grid behind hero sections, echoing the reference's dark canvas. */
+  .canvas-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .pink-swirl {
+    background:
+      radial-gradient(120% 90% at 15% 10%, #fde3f0 0%, transparent 45%),
+      radial-gradient(80% 70% at 85% 30%, #f7b7d6 0%, transparent 55%),
+      radial-gradient(90% 90% at 40% 100%, #e8579a 0%, transparent 60%),
+      conic-gradient(from 210deg at 60% 55%, #f5a3cb, #fbd3e6, #e8579a, #f5a3cb);
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
